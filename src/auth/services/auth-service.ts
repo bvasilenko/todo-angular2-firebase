@@ -1,43 +1,24 @@
 import { Injectable } from '@angular/core';
-import { AuthProviders, FirebaseAuth, FirebaseAuthState } from 'angularfire2';
-
+import * as Rx from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  private authState: FirebaseAuthState = null;
+  private _authState = new Rx.BehaviorSubject(null);
 
-  constructor(public auth$: FirebaseAuth) {
-    auth$.subscribe((state: FirebaseAuthState) => {
-      this.authState = state;
+  get authState() {
+    return this._authState.asObservable();
+  }
+
+  signIn() {
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        this._authState.next({ id: 'user_id' });
+        resolve();
+      }, 1000);
     });
   }
 
-  get authenticated(): boolean {
-    return this.authState !== null;
-  }
-
-  get id(): string {
-    return this.authenticated ? this.authState.uid : '';
-  }
-
-  signIn(provider: number): firebase.Promise<FirebaseAuthState> {
-    return this.auth$.login({provider})
-      .catch(error => console.log('ERROR @ AuthService#signIn() :', error));
-  }
-
-  signInWithGithub(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Github);
-  }
-
-  signInWithGoogle(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Google);
-  }
-
-  signInWithTwitter(): firebase.Promise<FirebaseAuthState> {
-    return this.signIn(AuthProviders.Twitter);
-  }
-
-  signOut(): void {
-    this.auth$.logout();
+  signOut() {
+    this._authState.next(null);
   }
 }
