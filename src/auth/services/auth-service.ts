@@ -3,7 +3,16 @@ import * as Rx from 'rxjs';
 
 @Injectable()
 export class AuthService {
+  private _authenticated: boolean;
   private _authState = new Rx.BehaviorSubject(null);
+
+  public constructor() {
+    this._authState.subscribe(state => this._authenticated = !!state);
+  }
+
+  get authenticated() {
+    return this._authenticated;
+  }
 
   get authState() {
     return this._authState.asObservable();
@@ -19,6 +28,11 @@ export class AuthService {
   }
 
   signOut() {
-    this._authState.next(null);
+    return new Promise<void>(resolve => {
+      setTimeout(() => {
+        this._authState.next(null);
+        resolve();
+      }, 1000);
+    });
   }
 }

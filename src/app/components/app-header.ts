@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   selector: 'app-header',
   template: `
     App header
+    <span *ngIf="authenticated"><a (click)="signOut.emit()" href="javascript:void(0)">Sign out</a></span>
   `
 })
 

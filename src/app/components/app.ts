@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/auth';
 
 
@@ -6,7 +7,7 @@ import { AuthService } from 'src/auth';
   selector: 'app',
   template: `
     <app-header
-      [authenticated]="auth.authenticated"
+      [authenticated]="authenticated"
       (signOut)="signOut()"></app-header>
 
     <main class="main">
@@ -16,9 +17,14 @@ import { AuthService } from 'src/auth';
 })
 
 export class AppComponent {
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {
+  }
+
+  public get authenticated() {
+    return this.auth.authenticated;
+  }
 
   signOut(): void {
-    this.auth.signOut();
+    this.auth.signOut().then(() => this.router.navigate(['/']));
   }
 }
