@@ -22,6 +22,6 @@ export class SignInComponent {
   }
 
   private postSignIn() {
-    this.router.navigate(['/tasks']);
+    this.router.navigate(['/dashboard']);
   }
 }

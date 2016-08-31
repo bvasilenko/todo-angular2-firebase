@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 
 import { AuthModule } from '../auth';
-import { TasksModule } from '../tasks';
+import { DashboardModule } from '../dashboard';
 
 import { AppComponent } from './components/app';
 import { AppHeaderComponent } from './components/app-header';
@@ -21,7 +21,7 @@ import { AppHeaderComponent } from './components/app-header';
     BrowserModule,
     RouterModule.forRoot([], {useHash: false}),
     AuthModule,
-    TasksModule
+    DashboardModule
   ]
 })
 

@@ -5,16 +5,16 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from '../auth';
 
-import { TasksComponent } from './components/tasks';
+import { DashboardComponent } from './components/dashboard';
 
 const routes: Routes = [
-  { path: 'tasks', component: TasksComponent, canActivate: [AuthGuard] }
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] }
 ];
 
 
 @NgModule({
   declarations: [
-    TasksComponent
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -25,4 +25,4 @@ const routes: Routes = [
   ]
 })
 
-export class TasksModule {}
+export class DashboardModule {}
